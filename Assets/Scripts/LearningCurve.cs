@@ -17,32 +17,53 @@ public class LearningCurve : MonoBehaviour
     public bool HasSecretIncantation  = false;
     public string RareItem = "Relic Stone";
 
-    void Start()
+ public string CharacterAction = "Attack";
+void Start()
+{
+    Character hero = new Character();
+ Debug.LogFormat("Hero: {0} - {1} EXP", hero.name, hero.exp);
+}
+
+public void FindPartyMember()
+{
+    List<string> QuestPartyMembers = new List<string>()
     {
-        OpenTreasureChamber();
-        if(weaponEquipped)
+        "Grim the Barbarian",
+        "Merlin the Wise",
+        "Sterling the Knight"
+    };
+    int listLength = QuestPartyMembers.Count;
+    QuestPartyMembers.Add("Craven the Necromancer");
+    QuestPartyMembers.Insert(1, "Tanis the Thief");
+    QuestPartyMembers.RemoveAt(0);
+    //QuestPartyMembers.Remove("Grim the Barbarian");
+    
+    Debug.LogFormat("Party Members: {0}", listLength);
+    for(int i = 0; i < listLength; i++)
+    {
+        Debug.LogFormat("Index: {0} - {1}", i, QuestPartyMembers[i]);
+        if(QuestPartyMembers[i] == "Merlin the Wise")
         {
-            if(weaponType == "Longsword")
-            {
-                Debug.Log("For the Queen!");
-            }
+            Debug.Log("Glad you're here Merlin!");
         }
-        else 
-        {
-            Debug.Log("Fists aren't going to work against armor...");
-        }
-        Thievery();       
-
-        int CharacterHealth = 100;
-        int CharacterLevel = 32;
-        int NextSkillLevel = GenerateCharacter("Mike", CharacterLevel);
-
-        // GenerateCharacter("Spike", CharacterLevel);
-
-        // Debug.Log(CharacterClass + " - HP: " + CharacterHealth);
-        Debug.Log(NextSkillLevel);
-        Debug.Log(GenerateCharacter("Faye", CharacterLevel));
     }
+}
+
+public void PrintCharacterAction()
+{
+    switch(CharacterAction)
+    {
+        case "Heal":
+            Debug.Log("Potion sent.");
+            break;
+        case "Attack":
+            Debug.Log("To arms!");
+            break;
+        default:
+            Debug.Log("Shields up.");
+            break;
+    }
+}
 
     public void Thievery()
     {
